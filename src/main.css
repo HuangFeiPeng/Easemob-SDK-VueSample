@@ -1,0 +1,22 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+:root{
+    --font_color:rgb(078, 110, 242);
+}
+
+body{
+    width: 1100px;
+    height: 100vh;
+    margin: 0 auto;
+}
+
+#title{
+    margin-top: 50px;
+    text-align: center;
+    letter-spacing: 5px;
+    color: var(--font_color);
+}
+
+
