@@ -1,0 +1,1 @@
+export const defaultAppKey = 'easemob-demo#easeim'
