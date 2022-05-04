@@ -83,7 +83,7 @@ export default {
         let res = await WebIM.conn.open(params);
         console.log("get token success", res);
       } catch (error) {
-        console.log(">>>>login fail");
+        console.log(">>>>login fail", error);
       }
     };
     const tokenLogin = () => {
@@ -96,16 +96,18 @@ export default {
     const exit = () => {
       WebIM.conn.close();
     };
-    const registerUser = async () => {
-      try {
-        let res = await WebIM.conn.registerUser({
+    const registerUser = () => {
+      WebIM.conn
+        .registerUser({
           username: hxId.value,
           password: hxPwd.value,
+        })
+        .then((res) => {
+          console.log("registerUser success", res);
+        })
+        .catch((e) => {
+          console.log("registerUser fail>>>", e);
         });
-        console.log("registerUser success", res);
-      } catch (error) {
-        console.log("registerUser fail", JSON.parse(error.data));
-      }
     };
     return {
       isLogin,

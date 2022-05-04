@@ -6,6 +6,7 @@
   <Message />
   <UsersInfo />
   <Friend />
+  <Group />
 </template>
 
 <script>
@@ -14,19 +15,24 @@ import Login from "./components/Longin/Login.vue";
 import Message from "./components/Message/Message.vue";
 import UsersInfo from "./components/UsersInfo/UsersInfo.vue";
 import Friend from "./components/Friend/index.vue";
+import Group from "./components/Group/index.vue";
 export default {
   components: {
     Login,
     Message,
     UsersInfo,
     Friend,
+    Group,
   },
   setup() {
     WebIM.conn = new WebIM.connection({
       appKey: "easemob-demo#easeim",
-      // appKey: "1147211018094034#haoxiangshenghuo",
+
+      isMultiLoginSessions: true,
+      aaaabbb: true,
     });
     onBeforeMount(() => {
+      // WebIM.logger.disableAll();
       /* socket连接相关监听 */
       WebIM.conn.addEventHandler("connectionListen", {
         onConnected: () => {
@@ -116,6 +122,94 @@ export default {
           console.log("%c onContactAgreed", "background:green", msg);
         },
       });
+      /* group群组聊天室相关 */
+      WebIM.conn.addEventHandler("groupListen", {
+        onGroupChange: (msg) => {
+          console.log("groupListen>>>", msg);
+          switch (msg.type) {
+            case "rmGroupMute":
+              // 解除群组一键禁言。
+              break;
+            case "muteGroup":
+              // 设置群组一键禁言。
+              break;
+            case "rmUserFromGroupWhiteList":
+              // 删除群白名单成员。
+              break;
+            case "addUserToGroupWhiteList":
+              // 添加群白名单成员。
+              break;
+            case "deleteFile":
+              // 删除群文件
+              break;
+            case "uploadFile":
+              // 上传群文件。
+              break;
+            case "deleteAnnouncement":
+              // 删除群公告。
+              break;
+            case "updateAnnouncement":
+              // 更新群公告。
+              break;
+            case "removeMute":
+              // 解除禁言。
+              break;
+            case "addMute":
+              // 禁言用户。
+              break;
+            case "removeAdmin":
+              // 移除管理员。
+              break;
+            case "addAdmin":
+              // 添加管理员。
+              break;
+            case "changeOwner":
+              // 转让群组。
+              break;
+            case "direct_joined":
+              // 用户直接被拉进群。
+              break;
+            case "leaveGroup":
+              // 退群。
+              break;
+            case "memberJoinPublicGroupSuccess":
+              // 加入公开群成功。
+              break;
+            case "removedFromGroup":
+              // 从群组移除。
+              break;
+            case "invite_decline":
+              // 拒绝加群邀请。
+              break;
+            case "invite_accept":
+              // 接收加群邀请（群含权限情况）。
+              break;
+            case "invite":
+              // 加群邀请。
+              break;
+            case "joinPublicGroupDeclined":
+              // 拒绝入群申请。
+              break;
+            case "joinPublicGroupSuccess":
+              // 同意入群申请。
+              break;
+            case "joinGroupNotifications":
+              // 申请入群。
+              break;
+            case "leave":
+              // 退出群。
+              break;
+            case "join":
+              // 加入群。
+              break;
+            case "deleteGroupChat":
+              // 解散群。
+              break;
+            default:
+              break;
+          }
+        },
+      });
     });
   },
 };
@@ -126,5 +220,8 @@ export default {
   background: rgba(118, 142, 239, 0.281);
   padding: 10px;
   margin: 20px 0;
+}
+button {
+  margin: 3px;
 }
 </style>
