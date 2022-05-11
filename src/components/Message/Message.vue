@@ -1,5 +1,6 @@
 <template>
   <div class="app-contanier">
+    <h3>消息发送</h3>
     <div class="sendMsg_box">
       <h5>聊天类型设定</h5>
       <form autocomplete="off">
@@ -141,6 +142,7 @@
         ></textarea>
       </form>
       <button @click="sendText">文本消息</button>
+      <button @click="sendLoc">坐标消息</button>
       <!-- <button @click="sendPicture">贴图消息</button> -->
       <button @click="sendUrl">发送URL图片消息</button>
       <button @click="sendCustom">自定义消息</button>
@@ -155,13 +157,18 @@
       <button @click="sessionList">会话列表</button>
       <button @click="initReadNum">初始化会话unReadNum</button>
     </div>
+    <Presence />
   </div>
 </template>
 
 <script>
+import Presence from "../Presence/index.vue";
 import { reactive, toRefs, toRef } from "vue";
 import "./index.css";
 export default {
+  components: {
+    Presence,
+  },
   setup() {
     const state = reactive({
       pickFileType: "video", //选中的附件类型
@@ -182,6 +189,28 @@ export default {
         to: state.sendTo, // 消息接收方（用户 ID)。
         msg: state.textValue, // 消息内容。
         type: "txt", // 消息类型。
+      };
+      let msg = WebIM.message.create(option);
+      WebIM.conn
+        .send(msg)
+        .then((res) => {
+          console.log("消息发送成功", res);
+        })
+        .catch((e) => {
+          console.log("消息发送失败", e);
+        });
+    };
+    //坐标消息
+    const sendLoc = () => {
+      if (!state.sendTo) return alert("目标Id不可为空！");
+      let option = {
+        chatType: state.nowChatType, // 会话类型，设置为单聊。
+        to: state.sendTo, // 消息接收方（用户 ID)。
+        addr: "中国北京市海淀区南大街2号院-1",
+        buildingName: "",
+        lat: 39.966218,
+        lng: 116.32315,
+        type: "loc", // 消息类型。
       };
       let msg = WebIM.message.create(option);
       WebIM.conn
@@ -394,6 +423,7 @@ export default {
     };
     return {
       sendText,
+      sendLoc,
       sendCustom,
       sendUrl,
       sendCmdMsg,
