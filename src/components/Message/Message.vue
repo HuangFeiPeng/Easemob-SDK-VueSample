@@ -56,7 +56,7 @@
             min="5"
             ref="rangeNum"
             v-model="msgNum"
-          />{{ "漫游拉取条数：" + msgNum }}
+          />{{ '漫游拉取条数：' + msgNum }}
           <h6 style="color: red">
             *默认拉取单聊勾选为群组（发送会话回执类型也在此选择）
           </h6>
@@ -162,64 +162,64 @@
 </template>
 
 <script>
-import Presence from "../Presence/index.vue";
-import { reactive, toRefs, toRef } from "vue";
-import "./index.css";
+import Presence from '../Presence/index.vue';
+import { reactive, toRefs, toRef } from 'vue';
+import './index.css';
 export default {
   components: {
     Presence,
   },
   setup() {
     const state = reactive({
-      pickFileType: "video", //选中的附件类型
+      pickFileType: 'video', //选中的附件类型
       isChecked: false,
-      msgNum: "10", //漫游条数
+      msgNum: '10', //漫游条数
       isSingle: true,
-      recallType: "", //撤回类型,
-      messageId: "", //消息mid
-      sendTo: "", //目标ID（包含群组以及聊天室ID）
-      textValue: "", //文本域的value
-      nowChatType: "singleChat", //选中聊天类型
+      recallType: '', //撤回类型,
+      messageId: '', //消息mid
+      sendTo: '', //目标ID（包含群组以及聊天室ID）
+      textValue: '', //文本域的value
+      nowChatType: 'singleChat', //选中聊天类型
     });
     //文本消息
     const sendText = () => {
-      if (!state.sendTo) return alert("目标Id不可为空！");
+      if (!state.sendTo) return alert('目标Id不可为空！');
       let option = {
         chatType: state.nowChatType, // 会话类型，设置为单聊。
         to: state.sendTo, // 消息接收方（用户 ID)。
         msg: state.textValue, // 消息内容。
-        type: "txt", // 消息类型。
+        type: 'txt', // 消息类型。
       };
       let msg = WebIM.message.create(option);
       WebIM.conn
         .send(msg)
         .then((res) => {
-          console.log("消息发送成功", res);
+          console.log('消息发送成功', res);
         })
         .catch((e) => {
-          console.log("消息发送失败", e);
+          console.log('消息发送失败', e);
         });
     };
     //坐标消息
     const sendLoc = () => {
-      if (!state.sendTo) return alert("目标Id不可为空！");
+      if (!state.sendTo) return alert('目标Id不可为空！');
       let option = {
         chatType: state.nowChatType, // 会话类型，设置为单聊。
         to: state.sendTo, // 消息接收方（用户 ID)。
-        addr: "中国北京市海淀区南大街2号院-1",
-        buildingName: "",
+        addr: '中国北京市海淀区南大街2号院-1',
+        buildingName: '',
         lat: 39.966218,
         lng: 116.32315,
-        type: "loc", // 消息类型。
+        type: 'loc', // 消息类型。
       };
       let msg = WebIM.message.create(option);
       WebIM.conn
         .send(msg)
         .then((res) => {
-          console.log("消息发送成功", res);
+          console.log('消息发送成功', res);
         })
         .catch((e) => {
-          console.log("消息发送失败", e);
+          console.log('消息发送失败', e);
         });
     };
     //自定义消息
@@ -228,8 +228,8 @@ export default {
         chatType: state.nowChatType, // 会话类型，设置为单聊。
         to: state.sendTo, // 消息接收方（用户 ID)。
         msg: state.textValue, // 消息内容。
-        type: "custom",
-        customEvent: "customEvent", // 自定义事件。
+        type: 'custom',
+        customEvent: 'customEvent', // 自定义事件。
         customExts: {}, // 消息内容，key/value 需要 string 类型。
         ext: {},
       };
@@ -237,31 +237,31 @@ export default {
       WebIM.conn
         .send(msg)
         .then((res) => {
-          console.log("自定义消息发送成功", res); // 消息发送成功。
+          console.log('自定义消息发送成功', res); // 消息发送成功。
         })
         .catch((e) => {
-          console.log("自定义消息发送失败", e); // 如禁言或拉黑后消息发送失败。
+          console.log('自定义消息发送失败', e); // 如禁言或拉黑后消息发送失败。
         });
     };
     //URL消息
     const sendUrl = () => {
       const url =
-        "https://www.easemob.com/themes/official_v3/Public/img/home/link@2x.png?3";
+        'https://www.easemob.com/themes/official_v3/Public/img/home/link@2x.png?3';
       let option = {
         chatType: state.nowChatType, // 会话类型，设置为单聊。
         to: state.sendTo, // 消息接收方（用户 ID)。
         msg: state.textValue, // 消息内容。
-        type: "img", // 消息类型，设置为图片。
+        type: 'img', // 消息类型，设置为图片。
         url,
       };
       let msg = WebIM.message.create(option);
       WebIM.conn
         .send(msg)
         .then((res) => {
-          console.log("success", res); // 消息发送成功。
+          console.log('success', res); // 消息发送成功。
         })
         .catch((e) => {
-          console.log("fail", r); // 如禁言或拉黑后消息发送失败。
+          console.log('fail', r); // 如禁言或拉黑后消息发送失败。
         });
     };
     //CMD消息
@@ -270,25 +270,25 @@ export default {
         chatType: state.nowChatType, // 会话类型，设置为单聊。
         to: state.sendTo, // 消息接收方（用户 ID)。
         msg: state.textValue, // 消息内容。
-        type: "cmd", // 消息类型，设置为命令消息。
-        action: "action", // 用户自定义操作。对于命令消息，该字段必填。
+        type: 'cmd', // 消息类型，设置为命令消息。
+        action: 'action', // 用户自定义操作。对于命令消息，该字段必填。
       };
       let msg = WebIM.message.create(option);
       WebIM.conn
         .send(msg)
         .then(() => {
-          console.log("success"); // 消息发送成功。
+          console.log('success'); // 消息发送成功。
         })
         .catch((e) => {
-          console.log("fail", e); // 如禁言获拉黑后消息发送会失败。
+          console.log('fail', e); // 如禁言获拉黑后消息发送会失败。
         });
     };
     //上传附件接口
     const updatFilebtn = () => {
-      let input = document.getElementById("updateFile"); // 选择图片的input
+      let input = document.getElementById('updateFile'); // 选择图片的input
       let file = WebIM.utils.getFileUrl(input); // 将图片转化为二进制文件
       let options = {
-        apiUrl: "//a1.easemob.com",
+        apiUrl: '//a1.easemob.com',
         appName: WebIM.conn.context.appName,
         orgName: WebIM.conn.context.orgName,
         accessToken: WebIM.conn.context.restTokenData,
@@ -296,18 +296,18 @@ export default {
         file: file,
         onFileUploadComplete: function (data) {
           //upload file success
-          console.log(">>>>>>附件上传成功", data);
+          console.log('>>>>>>附件上传成功', data);
         },
         onFileUploadError: function (e) {
           //upload file error
-          console.log(">>>>>>附件上传失败", e);
+          console.log('>>>>>>附件上传失败', e);
         },
       };
       WebIM.utils.uploadFile(options);
     };
     //发送附件
     const sendFile = () => {
-      let input = document.getElementById("updateFile"); // 选择图片的input
+      let input = document.getElementById('updateFile'); // 选择图片的input
       let file = WebIM.utils.getFileUrl(input); // 将图片转换为 fileObj 格式。
       // 也可将文件自行处理成该格式。
       // let file = {
@@ -322,7 +322,7 @@ export default {
         file: file,
         onFileUploadError: function () {
           // 消息上传失败。
-          console.log("onFileUploadError");
+          console.log('onFileUploadError');
         },
         onFileUploadProgress: function (progress) {
           // 上传进度的回调。
@@ -330,17 +330,17 @@ export default {
         },
         onFileUploadComplete: function () {
           // 消息上传成功。
-          console.log("onFileUploadComplete");
+          console.log('onFileUploadComplete');
         },
       };
       let msg = WebIM.message.create(option);
       WebIM.conn
         .send(msg)
         .then(() => {
-          console.log("Success"); // 消息发送成功。
+          console.log('Success'); // 消息发送成功。
         })
         .catch((e) => {
-          console.log("Fail", e); // 如禁言或拉黑后消息发送失败。
+          console.log('Fail', e); // 如禁言或拉黑后消息发送失败。
         });
     };
     //撤回消息
@@ -363,7 +363,7 @@ export default {
           console.log(`撤回该条消息成功`);
         })
         .catch((e) => {
-          console.log("recall error", e);
+          console.log('recall error', e);
         });
     };
     //消息漫游
@@ -380,46 +380,46 @@ export default {
        */
       var options = {
         queue: state.sendTo,
-        isGroup: state.isCheck, //选中是群组，否则是单聊
+        isGroup: state.isChecked, //选中是群组，否则是单聊
         count: state.msgNum,
         start: state.messageId,
       };
       WebIM.conn
         .fetchHistoryMessages(options)
         .then((res) => {
-          console.log("getHistory success", res);
+          console.log('getHistory success', res);
         })
         .catch((e) => {
-          console.log("getHistory fail", e);
+          console.log('getHistory fail', e);
         });
     };
     //初始化漫游游标
     const initHistoryMsgCache = () => {
       WebIM.conn.mr_cache = [];
-      alert("重置游标成功");
+      alert('重置游标成功');
     };
     //会话列表
     const sessionList = () => {
       WebIM.conn
         .getSessionList()
         .then((res) => {
-          console.log("getSessionList success", res.data);
+          console.log('getSessionList success', res.data);
         })
         .catch((e) => {
-          console.log("getSessionList fail", e);
+          console.log('getSessionList fail', e);
         });
     };
     //清除会话未读
     const initReadNum = () => {
       // 单聊。
       let option = {
-        chatType: state.isChecked ? "groupChat" : "singleChat", // 会话类型，设置为单聊。
-        type: "channel", // 消息类型。
+        chatType: state.isChecked ? 'groupChat' : 'singleChat', // 会话类型，设置为单聊。
+        type: 'channel', // 消息类型。
         to: state.sendTo, // 接收消息对象（用户 ID)。
       };
       let msg = WebIM.message.create(option);
       WebIM.conn.send(msg);
-      alert(`初始化${state.isChecked ? "群聊" : "单聊"}会话unReadNum成功`);
+      alert(`初始化${state.isChecked ? '群聊' : '单聊'}会话unReadNum成功`);
     };
     return {
       sendText,

@@ -17,7 +17,7 @@ import Message from './components/Message/Message.vue';
 import UsersInfo from './components/UsersInfo/UsersInfo.vue';
 import Friend from './components/Friend/index.vue';
 import Group from './components/Group/index.vue';
-// import Presence from "./components/Presence/index.vue";
+import Presence from './components/Presence/index.vue';
 export default {
   components: {
     Login,
