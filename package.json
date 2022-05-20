@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.26.0",
-    "easemob-websdk": "^4.0.4",
+    "easemob-websdk": "^4.0.5",
     "vue": "^3.2.31"
   },
   "devDependencies": {

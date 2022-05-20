@@ -30,7 +30,6 @@ export default {
   setup() {
     WebIM.conn = new WebIM.connection({
       appKey: 'easemob-demo#easeim',
-      // appKey: '1147211118108593#prod',
       // deviceId: 'easemob',
     });
     //publish 发布在线状态
@@ -240,6 +239,7 @@ export default {
   padding: 10px;
   margin: 20px 0;
 }
+
 button {
   margin: 3px;
 }
