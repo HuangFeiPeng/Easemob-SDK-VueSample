@@ -6,57 +6,27 @@
       <form autocomplete="off">
         <label for="singleChat">
           单聊模式：
-          <input
-            type="radio"
-            id="singleChat"
-            name="chatType"
-            v-model="nowChatType"
-            value="singleChat"
-            checked
-          />
+          <input type="radio" id="singleChat" name="chatType" v-model="nowChatType" value="singleChat" checked />
         </label>
         <br />
         <label for="groupChat">
           群聊模式：
-          <input
-            type="radio"
-            id="groupChat"
-            name="chatType"
-            v-model="nowChatType"
-            value="groupChat"
-          />
+          <input type="radio" id="groupChat" name="chatType" v-model="nowChatType" value="groupChat" />
         </label>
         <br />
         <label for="roomChat">
           聊天室模式：
-          <input
-            type="radio"
-            id="roomChat"
-            name="chatType"
-            v-model="nowChatType"
-            value="chatRoom"
-          />
+          <input type="radio" id="roomChat" name="chatType" v-model="nowChatType" value="chatRoom" />
         </label>
         <br />
         <label for="toId">
           目标ID：
-          <input
-            type="text"
-            id="toId"
-            v-model="sendTo"
-            placeholder="userId、groupId、roomId"
-          />
+          <input type="text" id="toId" v-model="sendTo" placeholder="userId、groupId、roomId" />
         </label>
         <!-- 消息漫游部分的设定 -->
         <div>
           <h5>消息漫游部分的设定</h5>
-          <input
-            type="range"
-            max="50"
-            min="5"
-            ref="rangeNum"
-            v-model="msgNum"
-          />{{ '漫游拉取条数：' + msgNum }}
+          <input type="range" max="50" min="5" ref="rangeNum" v-model="msgNum" />{{ '漫游拉取条数：' + msgNum }}
           <h6 style="color: red">
             *默认拉取单聊勾选为群组（发送会话回执类型也在此选择）
           </h6>
@@ -70,76 +40,32 @@
         <div class="fileType">
           <h6 style="color: red">*发附件记得选类型</h6>
           <label for="img">
-            <input
-              type="radio"
-              name="fileMsg"
-              id="img"
-              v-model="pickFileType"
-              value="img"
-            />图片
+            <input type="radio" name="fileMsg" id="img" v-model="pickFileType" value="img" />图片
           </label>
           <label for="video">
-            <input
-              type="radio"
-              name="fileMsg"
-              id="video"
-              v-model="pickFileType"
-              value="video"
-            />视频
+            <input type="radio" name="fileMsg" id="video" v-model="pickFileType" value="video" />视频
           </label>
           <label for="audio">
-            <input
-              type="radio"
-              name="fileMsg"
-              id="audio"
-              v-model="pickFileType"
-              value="audio"
-            />音频
+            <input type="radio" name="fileMsg" id="audio" v-model="pickFileType" value="audio" />音频
           </label>
           <label for="allFile">
-            <input
-              type="radio"
-              name="fileMsg"
-              id="allFile"
-              v-model="pickFileType"
-              value="file"
-            />全文件
+            <input type="radio" name="fileMsg" id="allFile" v-model="pickFileType" value="file" />全文件
           </label>
         </div>
         <div>
           <h5>撤回设定</h5>
           <h6 style="color: red">*首先选择撤回类型{{ recallType }}</h6>
           <input type="button" value="撤回chat" @click="recallType = 'chat'" />
-          <input
-            type="button"
-            value="撤回group"
-            @click="recallType = 'groupchat'"
-          />
-          <input
-            type="button"
-            value="撤回room"
-            @click="recallType = 'chatroom'"
-          />
+          <input type="button" value="撤回group" @click="recallType = 'groupchat'" />
+          <input type="button" value="撤回room" @click="recallType = 'chatroom'" />
         </div>
         <label for="msgId">
           messageId：
-          <input
-            type="text"
-            id="msgId"
-            placeholder="消息mid"
-            v-model="messageId"
-          />
+          <input type="text" id="msgId" placeholder="消息mid" v-model="messageId" />
         </label>
         <br />
-        <textarea
-          name=""
-          id="textMsgVal"
-          cols="50"
-          rows="5"
-          placeholder="文本消息输入框"
-          v-model="textValue"
-          ref="pictureUrl"
-        ></textarea>
+        <textarea name="" id="textMsgVal" cols="50" rows="5" placeholder="文本消息输入框" v-model="textValue"
+          ref="pictureUrl"></textarea>
       </form>
       <button @click="sendText">文本消息</button>
       <button @click="sendLoc">坐标消息</button>
@@ -158,16 +84,19 @@
       <button @click="initReadNum">初始化会话unReadNum</button>
     </div>
     <Presence />
+    <Reaction />
   </div>
 </template>
 
 <script>
 import Presence from '../Presence/index.vue';
+import Reaction from '../Reaction/index.vue'
 import { reactive, toRefs, toRef } from 'vue';
 import './index.css';
 export default {
   components: {
     Presence,
+    Reaction
   },
   setup() {
     const state = reactive({
@@ -383,6 +312,7 @@ export default {
         isGroup: state.isChecked, //选中是群组，否则是单聊
         count: state.msgNum,
         start: state.messageId,
+        format: true
       };
       WebIM.conn
         .fetchHistoryMessages(options)
@@ -404,6 +334,11 @@ export default {
         .getSessionList()
         .then((res) => {
           console.log('getSessionList success', res.data);
+          res.data.channel_infos.forEach(item => {
+            console.log('>>>>>item', item)
+            const msgBody = JSON.parse(item.meta.payload)
+            console.log('>>>payload>>>>', msgBody)
+          })
         })
         .catch((e) => {
           console.log('getSessionList fail', e);

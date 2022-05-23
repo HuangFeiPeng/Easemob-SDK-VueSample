@@ -7,7 +7,7 @@
   <UsersInfo />
   <Friend />
   <Group />
-  <Presence />
+
 </template>
 
 <script>
@@ -17,7 +17,7 @@ import Message from './components/Message/Message.vue';
 import UsersInfo from './components/UsersInfo/UsersInfo.vue';
 import Friend from './components/Friend/index.vue';
 import Group from './components/Group/index.vue';
-import Presence from './components/Presence/index.vue';
+
 export default {
   components: {
     Login,
@@ -25,11 +25,11 @@ export default {
     UsersInfo,
     Friend,
     Group,
-    Presence,
   },
   setup() {
     WebIM.conn = new WebIM.connection({
       appKey: 'easemob-demo#easeim',
+
       // deviceId: 'easemob',
     });
     //publish 发布在线状态
@@ -103,6 +103,9 @@ export default {
         onChannelMessage: (msg) => {
           console.log('>>>收到ChannelMessage', msg);
         }, // 收到会话已读回执，对方发送 `channel ack` 时会触发该回调。
+        onReactionChange: (msg) => {
+          console.log('>>>>>>收到ReactionChange', msg)
+        }
       });
       /* 处理好友相关 */
       WebIM.conn.addEventHandler('friendListen', {
