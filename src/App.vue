@@ -7,7 +7,7 @@
   <UsersInfo />
   <Friend />
   <Group />
-
+  <ChatRoom />
 </template>
 
 <script>
@@ -17,6 +17,7 @@ import Message from './components/Message/Message.vue';
 import UsersInfo from './components/UsersInfo/UsersInfo.vue';
 import Friend from './components/Friend/index.vue';
 import Group from './components/Group/index.vue';
+import ChatRoom from './components/Chatroom/index.vue';
 
 export default {
   components: {
@@ -25,29 +26,29 @@ export default {
     UsersInfo,
     Friend,
     Group,
+    ChatRoom
   },
   setup() {
     WebIM.conn = new WebIM.connection({
-      appKey: 'easemob-demo#easeim',
-
+      appKey: 'easemob-demo#support',
+      // appKey: '1128220517094884#yuan',
+      // appKey: '1102211027083487#mtime-qas',
+      // appKey: '1140220623096237#yuanbao',
       // deviceId: 'easemob',
     });
-    //publish 发布在线状态
-    const publisOnline = () => {
-      let option = {
-        description: 'online',
-      };
-      WebIM.conn.publishPresence(option).then((res) => {
-        console.log('>>>>>>>在线状态发布成功', res);
-      });
-    };
+
     onBeforeMount(() => {
       // WebIM.logger.disableAll();
+
+      //  WebIM.conn.listen({
+      //     onOpened: () => {
+      //       console.log('connect')
+      //     }
+      //   });
       /* socket连接相关监听 */
       WebIM.conn.addEventHandler('connectionListen', {
         onConnected: () => {
           console.log('connect success');
-          // publisOnline();
         },
         onDisconnected: () => {
           console.log('disconnect success');
