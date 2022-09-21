@@ -996,10 +996,10 @@ dot-case@^3.0.4:
     no-case "^3.0.4"
     tslib "^2.0.3"
 
-easemob-websdk@^4.0.8:
-  version "4.0.8"
-  resolved "https://registry.yarnpkg.com/easemob-websdk/-/easemob-websdk-4.0.8.tgz#e5564e97fcbc1d0642e40697365b88ef10a6e29d"
-  integrity sha512-LjJJMoCJkRYpgB+Sqd/aht82eDaPNCt7X+DEU4MdiX6k8OsRsE5fWOn/GC8M/rGHP0NaiN0CWJ4n08vJ9P3CpA==
+easemob-websdk@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/easemob-websdk/-/easemob-websdk-4.1.0.tgz#5da402d4511f3af53a3aa9a81de613bc74d32262"
+  integrity sha512-0+eVIxfcxuh9CcWMXXgscofJB+Ra31MtLKdyPjEr+uYepdwKjSmz17PWx28ewK1aVm3YsM0J67z7YM5bcCiaxA==
 
 ee-first@1.1.1:
   version "1.1.1"

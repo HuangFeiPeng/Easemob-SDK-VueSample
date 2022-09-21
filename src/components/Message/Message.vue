@@ -71,6 +71,7 @@
       <button @click="sendLoc">坐标消息</button>
       <!-- <button @click="sendPicture">贴图消息</button> -->
       <button @click="sendUrl">发送URL图片消息</button>
+      <button @click="sendUrlFIle">发送URL文件消息</button>
       <button @click="sendCustom">自定义消息</button>
       <button @click="sendCmdMsg">CMD命令消息</button>
       <button @click="updatFilebtn">单纯上传附件</button>
@@ -81,6 +82,7 @@
       <button @click="historyMsg">消息漫游</button>
       <button @click="initHistoryMsgCache">初始化漫游游标</button>
       <button @click="sessionList">会话列表</button>
+      <button @click="delSessionList">删除指定会话</button>
       <button @click="initReadNum">初始化会话unReadNum</button>
     </div>
     <Presence />
@@ -172,7 +174,7 @@ export default {
           console.log('自定义消息发送失败', e); // 如禁言或拉黑后消息发送失败。
         });
     };
-    //URL消息
+    //URL图片消息
     const sendUrl = () => {
       const url =
         'https://www.easemob.com/themes/official_v3/Public/img/home/link@2x.png?3';
@@ -193,6 +195,32 @@ export default {
           console.log('fail', r); // 如禁言或拉黑后消息发送失败。
         });
     };
+    //URL文件
+    const sendUrlFIle = () => {
+      const url =
+        'https://www.easemob.com/themes/official_v3/Public/img/home/link@2x.png?3';
+      let option = {
+        chatType: state.nowChatType, // 会话类型，设置为单聊。
+        to: state.sendTo, // 消息接收方（用户 ID)。
+        msg: state.textValue, // 消息内容。
+        type: 'file', // 消息类型，设置为图片。
+        body: {
+          url: url,
+          type: 'PDF',
+          filename: "test文件名称"
+        }
+      }
+      let msg = WebIM.message.create(option);
+      console.log('>>>>>>文件URL', msg);
+      WebIM.conn
+        .send(msg)
+        .then((res) => {
+          console.log('success', res); // 消息发送成功。
+        })
+        .catch((e) => {
+          console.log('fail', r); // 如禁言或拉黑后消息发送失败。
+        });
+    }
     //CMD消息
     const sendCmdMsg = () => {
       let option = {
@@ -344,6 +372,14 @@ export default {
           console.log('getSessionList fail', e);
         });
     };
+    //删除会话
+    const delSessionList = () => {
+      WebIM.conn.deleteSession({
+        channel: "pfh",
+        chatType: "singleChat",
+        deleteRoam: true,
+      })
+    }
     //清除会话未读
     const initReadNum = () => {
       // 单聊。
@@ -360,6 +396,7 @@ export default {
       sendText,
       sendLoc,
       sendCustom,
+      sendUrlFIle,
       sendUrl,
       sendCmdMsg,
       updatFilebtn,
@@ -368,6 +405,7 @@ export default {
       historyMsg,
       initHistoryMsgCache,
       sessionList,
+      delSessionList,
       initReadNum,
       ...toRefs(state),
     };

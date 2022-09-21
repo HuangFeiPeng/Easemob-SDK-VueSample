@@ -31,12 +31,27 @@ export default {
   setup() {
     WebIM.conn = new WebIM.connection({
       appKey: 'easemob-demo#support',
-      // appKey: '1128220517094884#yuan',
-      // appKey: '1102211027083487#mtime-qas',
-      // appKey: '1140220623096237#yuanbao',
-      // deviceId: 'easemob',
+      useOwnUploadFun:true
+      // appKey: '1121211029243966#demo',
+      // appKey: 'careate-ease#qyschat',
+      // appKey: 'easemob-demo#vip6',
+      // deviceId: 'careate-ease#qyschat',
     });
+    const getNowdate = () => {
+      var t = new Date();
+      var Y = t.getFullYear();
 
+      var M = t.getMonth() + 1 < 10 ? "0" + (t.getMonth() + 1) : t.getMonth() + 1;
+
+      var D = t.getDate() < 10 ? "0" + t.getDate() : t.getDate();
+
+      var H = t.getHours() < 10 ? "0" + t.getHours() : t.getHours();
+
+      var F = t.getMinutes()
+
+      var S = t.getSeconds();
+      return `${Y}-${M}-${D}-${H}:${F}:${S}`;
+    }
     onBeforeMount(() => {
       // WebIM.logger.disableAll();
 
@@ -60,7 +75,7 @@ export default {
       /* message相关 */
       WebIM.conn.addEventHandler('messageListen', {
         onTextMessage: (msg) => {
-          console.log('>>>收到TextMessage', msg);
+          console.log('>>>收到TextMessage', getNowdate(), msg);
         }, // 收到文本消息。
         onEmojiMessage: (msg) => {
           console.log('>>>收到EmojiMessage', msg);
