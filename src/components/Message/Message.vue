@@ -192,7 +192,7 @@ export default {
           console.log('success', res); // 消息发送成功。
         })
         .catch((e) => {
-          console.log('fail', r); // 如禁言或拉黑后消息发送失败。
+          console.log('fail', e); // 如禁言或拉黑后消息发送失败。
         });
     };
     //URL文件

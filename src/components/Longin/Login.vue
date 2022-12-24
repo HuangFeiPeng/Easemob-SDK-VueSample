@@ -8,39 +8,22 @@
         <div class="input_list">
           <label for="hxId">
             环信ID：
-            <input
-              id="hxId"
-              type="text"
-              v-model.trim="hxId"
-              placeholder="输入环信ID..."
-              onkeyup="this.value=this.value.replace(/[, ]/g,'')"
-            />
+            <input id="hxId" type="text" v-model.trim="hxId" placeholder="输入环信ID..." autocomplete="off" />
           </label>
         </div>
         <!-- 输入环信密码 -->
         <div class="input_list">
           <label for="hxPwd">
             环信密码：
-            <input
-              id="hxPwd"
-              type="text"
-              v-model.trim="hxPwd"
-              placeholder="输入环信密码..."
-              @keyup.enter="login"
-            />
+            <input id="hxPwd" type="text" v-model.trim="hxPwd" placeholder="输入环信密码..." @keyup.enter="login" />
           </label>
         </div>
         <!-- 输入环信Token -->
         <div class="input_list">
           <label for="hxToken">
             环信token登陆：
-            <input
-              id="hxToken"
-              type="text"
-              v-model.trim="hxToken"
-              placeholder="输入环信token..."
-              @keyup.enter="tokenLogin"
-            />
+            <input id="hxToken" type="text" v-model.trim="hxToken" placeholder="输入环信token..."
+              @keyup.enter="tokenLogin" />
           </label>
         </div>
         <!-- 功能button -->
@@ -54,11 +37,7 @@
           </button>
           <button type="button" v-if="isLogin" @click="exit">退出</button>
 
-          <button
-            type="button"
-            @click="isLogin = !isLogin"
-            v-text="isLogin ? '去注册' : '去登陆'"
-          ></button>
+          <button type="button" @click="isLogin = !isLogin" v-text="isLogin ? '去注册' : '去登陆'"></button>
         </div>
       </form>
     </div>
