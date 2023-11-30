@@ -1,4 +1,3 @@
-
 <template>
   <div class="app-contanier">
     <div class="user_Info">
@@ -21,7 +20,7 @@
       <input
         type="button"
         value="设置当前用户全部属性"
-        @click="updateOwnUserInfo"
+        @click="updateUserInfo"
       />
 
       <input
@@ -34,30 +33,30 @@
 </template>
 
 <script>
-import "./index.css";
-import { reactive, toRefs } from "vue";
+import './index.css';
+import { reactive, toRefs } from 'vue';
 export default {
   setup() {
     const state = reactive({
-      nickname: "昵称",
-      avatarurl: "http://avatarurl",
-      mail: "123@qq.com",
-      phone: "16888888888",
-      gender: "man",
-      birth: "2000-01-01",
-      sign: "a sign",
-      email: "1094521084@qq.com",
-      ext: JSON.stringify({
-        nationality: "China",
-        merit: "Hello，世界！",
-      }),
+      nickname: '昵称',
+      avatarurl: 'http://avatarurl',
+      mail: '123@qq.com',
+      phone: '16888888888',
+      gender: 'man',
+      birth: '2000-01-01',
+      sign: 'a sign',
+      email: '1094521084@qq.com',
+      ext: {
+        nationality: 'China',
+        merit: 'Hello，世界！',
+      },
     });
     //设置全部用户属性
-    const updateOwnUserInfo = () => {
+    const updateUserInfo = () => {
       let options = {
         ...state,
       };
-      WebIM.conn.updateOwnUserInfo(options).then((res) => {
+      WebIM.conn.updateUserInfo(options).then((res) => {
         console.log(res);
       });
     };
@@ -79,11 +78,10 @@ export default {
       //   });
     };
     return {
-      updateOwnUserInfo,
+      updateUserInfo,
       fetchUserInfoById,
       ...toRefs(state),
     };
   },
 };
 </script>
-
